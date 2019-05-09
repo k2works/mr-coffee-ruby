@@ -1,10 +1,11 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem 'sinatra'
+source 'https://rubygems.org'
+
+gem 'aws-record'
 gem 'json'
 gem 'rack'
 gem 'rack-contrib'
-gem 'aws-record'
 gem 'rake'
 gem 'rubysl-base64'
-
+gem 'sinatra'

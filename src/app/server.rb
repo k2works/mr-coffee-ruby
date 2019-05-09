@@ -1,8 +1,11 @@
-require 'sinatra'
+# frozen_string_literal: true
+
+require "sinatra"
 
 before do
-  if (! request.body.read.empty? and request.body.size > 0)
+  if !request.body.read.empty? && !request.body.empty?
     request.body.rewind
+    puts "hoge"
     @params = Sinatra::IndifferentHash.new
     @params.merge!(JSON.parse(request.body.read))
   end
@@ -11,20 +14,19 @@ end
 ##################################
 # For the index page
 ##################################
-get '/' do
+get "/" do
   erb :index
 end
 
 ##################################
 # Return a Hello world JSON
 ##################################
-get '/hello-world' do
+get "/hello-world" do
   content_type :json
-  { :Output => 'Hello World!' }.to_json
+  { Output: "Hello World!" }.to_json
 end
 
-post '/hello-world' do
+post "/hello-world" do
   content_type :json
-  { :Output => 'Hello World!' }.to_json
+  { Output: "Hello World!" }.to_json
 end
-

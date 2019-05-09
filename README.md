@@ -76,4 +76,16 @@ npm run aws:sam:destroy
 npm run aws:s3:destroy
 ```
 
+### 開発
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/k2works/mr-coffee-ruby.git)
+
+IDE起動後にコマンドラインで以下のコマンドを実行する
+```bash
+npm install
+npm run build
+npm start
+```
+A service is available on port 3000ポップアップからOpen PreviewまたはOpen Browserを押す
+
 **[⬆ back to top](#構成)**
