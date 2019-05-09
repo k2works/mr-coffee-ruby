@@ -35,7 +35,20 @@ npm install --save-dev browser-sync connect-browser-sync
 npx browser-sync init
 touch Procfile
 ```
+#### アプリケーションのセットアップ
 
+AWS SAM CLI のインストールおよびアップデート
+
+ ```bash
+pip install --user aws-sam-cli
+pip install --user --upgrade aws-sam-cli
+ ```
+ 
+ ```bash
+sam init --runtime ruby2.5 -n src
+ ```
+ 
+ 
 **[⬆ back to top](#構成)**
 
 ### 配置
