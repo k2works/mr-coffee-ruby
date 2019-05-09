@@ -245,4 +245,5 @@ $RECYCLE.BIN/
 
 .aws-sam
 packaged.yaml
+node_modules
 .idea

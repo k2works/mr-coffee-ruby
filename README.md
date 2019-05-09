@@ -40,6 +40,7 @@ touch Procfile
 AWS SAM CLI のインストールおよびアップデート
 
  ```bash
+pip install --user awscli
 pip install --user aws-sam-cli
 pip install --user --upgrade aws-sam-cli
  ```
@@ -81,8 +82,8 @@ npm run aws:s3:destroy
 
 IDE起動後にコマンドラインで以下のコマンドを実行する
 ```bash
-npm install
-npm run build
+chmod 0700 ./scripts/setup.sh
+./scripts/setup.sh
 npm start
 ```
 A service is available on port 3000ポップアップからOpen PreviewまたはOpen Browserを押す
