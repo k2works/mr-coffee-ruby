@@ -25,6 +25,17 @@
 
 ### 構築
 
+#### 開発パッケージのセットアップ
+
+```bash
+npm init
+npm install npm-run-all watch foreman cpx rimraf --save-dev
+npm install prettier @prettier/plugin-ruby --save-dev
+npm install --save-dev browser-sync connect-browser-sync
+npx browser-sync init
+touch Procfile
+```
+
 **[⬆ back to top](#構成)**
 
 ### 配置
