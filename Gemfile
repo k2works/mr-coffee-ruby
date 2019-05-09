@@ -18,4 +18,5 @@ group :test do
   gem 'rspec'
   gem 'rubocop', require: false
   gem 'test-unit'
+  gem 'cucumber'
 end

@@ -26,7 +26,9 @@
   "scripts": {
     "start": "nf start -j Procfile",
     "build": "npm-run-all app:build aws:sam:build",
-    "test": "cd $npm_package_config_app_dir; bundle exec rspec",
+    "test": "npm-run-all test:*",
+    "test:spec": "cd $npm_package_config_app_dir; bundle exec rspec",
+    "test:feature": "cd $npm_package_config_app_dir; bundle exec cucumber",
     "format": "cd $npm_package_config_app_dir; prettier --prefer-single-quotes false --write 'app/**/*.rb'",
     "linter": "cd $npm_package_config_app_dir; bundle exec rubocop",
     "linter:config": "cd $npm_package_config_app_dir; bundle exec rubocop --auto-gen-config",
