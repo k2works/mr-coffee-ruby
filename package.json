@@ -1,0 +1,54 @@
+{
+  "name": "mr-coffee-ruby",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "dependencies": {
+    "browser-sync": "^2.26.5",
+    "connect-browser-sync": "^2.1.0",
+    "cpx": "^1.5.0",
+    "foreman": "^3.0.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.17.0",
+    "rimraf": "^2.6.3",
+    "watch": "^1.0.2"
+  },
+  "devDependencies": {},
+  "config": {
+    "app_dir":  "src",
+    "s3_bucket":  "mr-coffee-ruby",
+    "stack_name":  "mr-coffee-ruby-lambda",
+    "region":  "us-east-1",
+    "stage":  "Development",
+    "api_url":  ""
+  },
+  "scripts": {
+    "start": "nf start -j Procfile",
+    "build": "cd $npm_package_config_app_dir; bundle install",
+    "test": "cd $npm_package_config_app_dir; bundle exec rspec",
+    "watch": "npm-run-all watch:*",
+    "watch:app": "watch 'npm-run-all test' ./src/app",
+    "watch:test": "watch 'npm-run-all test' ./src/app/spec",
+    "app:front": "browser-sync start --config bs-config.js",
+    "app:server": "cd $npm_package_config_app_dir; bundle exec rackup app/config.ru",
+    "app:api" : "cd $npm_package_config_app_dir; sam local start-api --host 0.0.0.0 --port 4000 --template .aws-sam/build/template.yaml",
+    "aws:s3:create": "aws s3 mb s3://$npm_package_config_s3_bucket --region $npm_package_config_region",
+    "aws:s3:destroy": "aws s3 rb s3://$npm_package_config_s3_bucket --force --region $npm_package_config_region",
+    "aws:sam:build": "cd $npm_package_config_app_dir; sam build",
+    "aws:sam:package": "sam package --template-file $npm_package_config_app_dir/.aws-sam/build/template.yaml --s3-bucket $npm_package_config_s3_bucket --output-template-file $npm_package_config_app_dir/.aws-sam/packaged.yaml",
+    "aws:sam:deploy": "sam deploy --template-file $npm_package_config_app_dir/.aws-sam/packaged.yaml --stack-name $npm_package_config_stack_name --capabilities CAPABILITY_NAMED_IAM  --parameter-overrides Stage=$npm_package_config_stage ApiUrl=$npm_package_config_api_url --region $npm_package_config_region",
+    "aws:sam:describe": "aws --region $npm_package_config_region cloudformation describe-stacks --stack-name $npm_package_config_stack_name",
+    "aws:sam:release": "npm-run-all test aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
+    "aws:sam:destroy": "aws --region $npm_package_config_region cloudformation delete-stack --stack-name $npm_package_config_stack_name"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k2works/mr-coffee-ruby.git"
+  },
+  "author": "k2works",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/k2works/mr-coffee-ruby/issues"
+  },
+  "homepage": "https://github.com/k2works/mr-coffee-ruby#readme"
+}

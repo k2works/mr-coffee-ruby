@@ -25,12 +25,55 @@
 
 ### 構築
 
+#### 開発パッケージのセットアップ
+
+```bash
+npm init
+npm install npm-run-all watch foreman cpx rimraf --save-dev
+npm install prettier @prettier/plugin-ruby --save-dev
+npm install --save-dev browser-sync connect-browser-sync
+npx browser-sync init
+touch Procfile
+```
+#### アプリケーションのセットアップ
+
+AWS SAM CLI のインストールおよびアップデート
+
+ ```bash
+pip install --user aws-sam-cli
+pip install --user --upgrade aws-sam-cli
+ ```
+ 
+ ```bash
+gem install bundler -v "~> 1.17"
+sam init --runtime ruby2.5 -n src
+ ```
+
+lambdaファンクション用バケットのセットアップ
+
+```bash
+npm run aws:s3:create
+``` 
+ 
 **[⬆ back to top](#構成)**
 
 ### 配置
 
+アプリケーションのデプロイ
+
+```bash
+npm run aws:sam:release
+```
+
 **[⬆ back to top](#構成)**
 
 ### 運用
+
+アプリケーションの廃棄
+
+```bash
+npm run aws:sam:destroy
+npm run aws:s3:destroy
+```
 
 **[⬆ back to top](#構成)**
