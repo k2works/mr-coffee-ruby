@@ -46,7 +46,6 @@ pip install --user --upgrade aws-sam-cli
  
  ```bash
 gem install bundler -v "~> 1.17"
-sam init --runtime ruby2.5 -n src
  ```
 
 lambdaファンクション用バケットのセットアップ
