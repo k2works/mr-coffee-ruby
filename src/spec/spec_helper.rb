@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../app/server.rb'
 require 'rack/test'
 
@@ -21,7 +23,7 @@ def api_gateway_post(path, params)
   api_gateway_body_fwd = params.to_json
   rack_input = StringIO.new(api_gateway_body_fwd)
 
-  post path, real_params = {}, {"rack.input" => rack_input}
+  post path, real_params = {}, 'rack.input' => rack_input
 end
 
 def json_result

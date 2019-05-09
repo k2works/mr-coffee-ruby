@@ -1,17 +1,20 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem "httparty"
-gem 'sinatra'
+source 'https://rubygems.org'
+
+gem 'aws-record'
+gem 'httparty'
 gem 'json'
 gem 'rack'
 gem 'rack-contrib'
-gem 'aws-record'
 gem 'rake'
 gem 'rubysl-base64'
+gem 'sinatra'
 
 group :test do
-  gem "test-unit"
-  gem "mocha"
-  gem "rspec"
-  gem "rack-test"
+  gem 'mocha'
+  gem 'rack-test'
+  gem 'rspec'
+  gem 'rubocop', require: false
+  gem 'test-unit'
 end

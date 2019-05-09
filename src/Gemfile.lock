@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ast (2.4.0)
     aws-eventstream (1.0.3)
     aws-partitions (1.160.0)
     aws-record (2.3.0)
@@ -19,6 +20,7 @@ GEM
     httparty (0.17.0)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
+    jaro_winkler (1.5.1-x86_64-darwin-17)
     jmespath (1.4.0)
     json (2.2.0)
     metaclass (0.0.4)
@@ -29,7 +31,11 @@ GEM
       metaclass (~> 0.0.1)
     multi_xml (0.6.0)
     mustermann (1.0.3)
+    parallel (1.12.1)
+    parser (2.5.3.0)
+      ast (~> 2.4.0)
     power_assert (1.1.4)
+    powerpack (0.1.2)
     rack (2.0.7)
     rack-contrib (2.1.0)
       rack (~> 2.0)
@@ -37,6 +43,7 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rainbow (3.0.0)
     rake (12.3.2)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
@@ -51,6 +58,15 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
+    rubocop (0.61.1)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.5, != 2.5.1.1)
+      powerpack (~> 0.1)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.4.0)
+    ruby-progressbar (1.10.0)
     rubysl-base64 (2.0.0)
     sinatra (2.0.5)
       mustermann (~> 1.0)
@@ -60,6 +76,7 @@ GEM
     test-unit (3.3.2)
       power_assert
     tilt (2.0.9)
+    unicode-display_width (1.4.0)
 
 PLATFORMS
   ruby
@@ -74,6 +91,7 @@ DEPENDENCIES
   rack-test
   rake
   rspec
+  rubocop
   rubysl-base64
   sinatra
   test-unit

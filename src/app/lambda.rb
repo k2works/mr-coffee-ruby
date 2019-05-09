@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # MIT No Attribution
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this
@@ -44,9 +46,7 @@ def handler(event:, context:)
     "rack.errors" => $stderr
   }
   # Pass request headers to Rack if they are available
-  unless event["headers"].nil?
-    event["headers"].each { |key, value| env["HTTP_#{key}"] = value }
-  end
+  event["headers"]&.each { |key, value| env["HTTP_#{key}"] = value }
 
   begin
     # Response from Rack must have status, headers and body
