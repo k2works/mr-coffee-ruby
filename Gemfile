@@ -10,6 +10,7 @@ gem 'rack-contrib'
 gem 'rake'
 gem 'rubysl-base64'
 gem 'sinatra'
+gem 'sinatra-contrib', require: false
 
 group :test do
   gem 'mocha'

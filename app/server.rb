@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "sinatra"
+require "sinatra/reloader"
 
 before do
   if !request.body.read.empty? && !request.body.empty?
@@ -17,6 +18,9 @@ get "/" do
   erb :index
 end
 
+get "/contact" do
+  erb :contact
+end
 ##################################
 # Return a Hello world JSON
 ##################################
