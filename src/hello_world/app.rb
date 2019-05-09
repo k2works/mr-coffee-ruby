@@ -32,7 +32,6 @@ def lambda_handler(event:, context:)
     statusCode: 200,
     body: {
       message: "Hello World!",
-      # location: response.body
     }.to_json
   }
 end
