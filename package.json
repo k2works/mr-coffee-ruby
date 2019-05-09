@@ -23,7 +23,15 @@
     "api_url":  ""
   },
   "scripts": {
+    "start": "nf start -j Procfile",
+    "build": "cd $npm_package_config_app_dir; bundle install",
     "test": "cd $npm_package_config_app_dir; bundle exec rspec",
+    "watch": "npm-run-all watch:*",
+    "watch:app": "watch 'npm-run-all test' ./src/app",
+    "watch:test": "watch 'npm-run-all test' ./src/app/spec",
+    "app:front": "browser-sync start --config bs-config.js",
+    "app:server": "cd $npm_package_config_app_dir; bundle exec rackup app/config.ru",
+    "app:api" : "cd $npm_package_config_app_dir; sam local start-api --host 0.0.0.0 --port 4000 --template .aws-sam/build/template.yaml",
     "aws:s3:create": "aws s3 mb s3://$npm_package_config_s3_bucket --region $npm_package_config_region",
     "aws:s3:destroy": "aws s3 rb s3://$npm_package_config_s3_bucket --force --region $npm_package_config_region",
     "aws:sam:build": "cd $npm_package_config_app_dir; sam build",
