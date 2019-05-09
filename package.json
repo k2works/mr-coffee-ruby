@@ -16,7 +16,7 @@
     "prettier": "^1.17.0"
   },
   "config": {
-    "app_dir": "src",
+    "app_dir": "./",
     "s3_bucket": "mr-coffee-ruby",
     "stack_name": "mr-coffee-ruby-lambda",
     "region": "us-east-1",
@@ -25,15 +25,16 @@
   },
   "scripts": {
     "start": "nf start -j Procfile",
-    "build": "cd $npm_package_config_app_dir; bundle install",
+    "build": "npm-run-all app:build aws:sam:build",
     "test": "cd $npm_package_config_app_dir; bundle exec rspec",
     "format": "cd $npm_package_config_app_dir; prettier --prefer-single-quotes false --write 'app/**/*.rb'",
     "linter": "cd $npm_package_config_app_dir; bundle exec rubocop",
     "linter:config": "cd $npm_package_config_app_dir; bundle exec rubocop --auto-gen-config",
     "linter:fix": "cd $npm_package_config_app_dir; bundle exec rubocop --auto-correct",
     "watch": "npm-run-all watch:*",
-    "watch:app": "watch 'npm-run-all test format linter' ./src/app",
-    "watch:test": "watch 'npm-run-all test format linter' ./src/app/spec",
+    "watch:app": "watch 'npm-run-all test format linter' $npm_package_config_app_dir/app",
+    "watch:test": "watch 'npm-run-all test format linter' $npm_package_config_app_dir/app/spec",
+    "app:build": "cd $npm_package_config_app_dir; bundle install",
     "app:front": "browser-sync start --config bs-config.js",
     "app:server": "cd $npm_package_config_app_dir; bundle exec rackup app/config.ru",
     "app:api": "cd $npm_package_config_app_dir; sam local start-api --host 0.0.0.0 --port 4000 --template .aws-sam/build/template.yaml",
