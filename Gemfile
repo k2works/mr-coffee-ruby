@@ -19,4 +19,6 @@ group :test do
   gem 'rubocop', require: false
   gem 'test-unit'
   gem 'cucumber'
+  gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
 end
