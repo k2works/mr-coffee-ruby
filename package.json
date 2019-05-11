@@ -30,7 +30,7 @@
     "build": "npm-run-all app:build aws:sam:build",
     "test": "npm-run-all test:spec test:feature:headless",
     "test:spec": "cd $npm_package_config_app_dir; bundle exec rspec",
-    "test:feature:headless": "cd $npm_package_config_app_dir; bundle exec cucumber",
+    "test:feature:headless": "cd $npm_package_config_app_dir; bundle exec cucumber --tags ~@wip",
     "test:feature:brower": "cd $npm_package_config_app_dir; BROWSER=true bundle exec cucumber",
     "format": "cd $npm_package_config_app_dir; prettier --prefer-single-quotes false --write 'app/**/*.rb'",
     "linter": "cd $npm_package_config_app_dir; bundle exec rubocop",
