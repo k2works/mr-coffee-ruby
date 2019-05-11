@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FridayStepHelper
   def is_it_friday(day)
     if day == 'Friday'
@@ -21,6 +23,6 @@ Then(/^I should be told "([^"]*)"$/) do |expected_answer|
   expect(@actual_answer).to eq(expected_answer)
 end
 
-Given("today is Friday") do
+Given('today is Friday') do
   @today = 'Friday'
 end

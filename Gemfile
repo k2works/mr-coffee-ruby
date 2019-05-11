@@ -13,12 +13,12 @@ gem 'sinatra'
 gem 'sinatra-contrib', require: false
 
 group :test do
+  gem 'capybara-screenshot'
+  gem 'cucumber'
   gem 'mocha'
   gem 'rack-test'
   gem 'rspec'
   gem 'rubocop', require: false
-  gem 'test-unit'
-  gem 'cucumber'
-  gem 'capybara-screenshot'
   gem 'selenium-webdriver'
+  gem 'test-unit'
 end

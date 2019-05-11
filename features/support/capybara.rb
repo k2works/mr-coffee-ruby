@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'capybara/cucumber'
 require 'selenium-webdriver'
 require 'capybara-screenshot/cucumber'
@@ -16,4 +18,4 @@ Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 # Custom screenshot directory
-Capybara.save_path = "tmp/capybara"
+Capybara.save_path = 'tmp/capybara'
