@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'aws-record'
 gem 'httparty'
 gem 'json'
+gem 'puma'
 gem 'rack'
 gem 'rack-contrib'
 gem 'rake'
@@ -13,6 +14,7 @@ gem 'sinatra'
 gem 'sinatra-contrib', require: false
 
 group :test do
+  gem 'capybara'
   gem 'capybara-screenshot'
   gem 'cucumber'
   gem 'mocha'

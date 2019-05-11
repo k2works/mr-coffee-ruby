@@ -3,10 +3,10 @@
 require_relative '../app/server.rb'
 require 'rack/test'
 
-set :environment, :test
+ENV['APP_ENV'] = 'test'
 
 def app
-  Sinatra::Application
+  App
 end
 
 def stub_client

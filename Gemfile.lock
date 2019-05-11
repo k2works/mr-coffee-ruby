@@ -74,6 +74,7 @@ GEM
     power_assert (1.1.4)
     powerpack (0.1.2)
     public_suffix (3.0.3)
+    puma (3.8.2)
     rack (2.0.7)
     rack-contrib (2.1.0)
       rack (~> 2.0)
@@ -135,11 +136,13 @@ PLATFORMS
 
 DEPENDENCIES
   aws-record
+  capybara
   capybara-screenshot
   cucumber
   httparty
   json
   mocha
+  puma
   rack
   rack-contrib
   rack-test
