@@ -53,13 +53,19 @@ lambdaファンクション用バケットのセットアップ
 
 ```bash
 npm run aws:s3:create
-``` 
+```
  
+#### データベースのセットアップ
+ 
+```bash
+npm run db:setup
+```
+
 **[⬆ back to top](#構成)**
 
 ### 配置
 
-アプリケーションのデプロイ
+#### アプリケーションのデプロイ
 
 ```bash
 npm run aws:sam:release
@@ -69,7 +75,15 @@ npm run aws:sam:release
 
 ### 運用
 
-アプリケーションの廃棄
+#### データベースの起動と停止
+
+```bash
+npm run db:start
+npm run db:show
+npm run db:stop
+```
+
+#### アプリケーションの廃棄
 
 ```bash
 npm run aws:sam:destroy
