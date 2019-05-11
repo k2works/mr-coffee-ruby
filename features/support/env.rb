@@ -22,7 +22,7 @@ Capybara.register_driver :selenium_chrome do |app|
 end
 
 # Custom screenshot directory
-Capybara.save_path = 'tmp/capybara'
+Capybara.save_path = '../tmp/capybara'
 
 World do
   Capybara.app = App
