@@ -9,4 +9,5 @@ class Contact
   string_attr :questionnaire
   string_attr :category
   string_attr :message
+  epoch_time_attr :ts
 end

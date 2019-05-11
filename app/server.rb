@@ -18,7 +18,7 @@ require "bundler/setup"
 Bundler.require(:default, ENV["SINATRA_ENV"])
 
 ActiveRecord::Base.establish_connection(
-  adapter: "sqlite3", database: "db/#{ENV['SINATRA_ENV']}.sqlite"
+  adapter: "sqlite3", database: "db/#{ENV["SINATRA_ENV"]}.sqlite"
 )
 
 Aws.config.update(
@@ -28,6 +28,8 @@ Aws.config.update(
 Aws.config.update(region: ENV["AWS_DEFAULT_REGION"])
 Aws.config.update(endpoint: ENV["DB_ENDPOINT"])
 
+require_all "app/models"
+
 class App < Sinatra::Base
   configure do
     set :root, File.dirname(__FILE__)
@@ -35,11 +37,11 @@ class App < Sinatra::Base
   end
 
   before do
-    if !request.body.read.empty? && !request.body.empty?
-      request.body.rewind
-      @params = Sinatra::IndifferentHash.new
-      @params.merge!(JSON.parse(request.body.read))
-    end
+    #     if !request.body.read.empty? && !request.body.empty?
+    #       request.body.rewind
+    #       @params = Sinatra::IndifferentHash.new
+    #       @params.merge!(JSON.parse(request.body.read))
+    #     end
   end
 
   ##################################
@@ -50,6 +52,19 @@ class App < Sinatra::Base
   end
 
   get "/contact" do
+    erb :contact
+  end
+
+  post "/contact" do
+    item = Contact.new(id: SecureRandom.uuid, ts: Time.now)
+    item.name = params[:name]
+    item.email = params[:email]
+    item.questionnaire = params[:questionnaire]
+    item.category = params[:category]
+    item.message = params[:message]
+    item.save!
+
+    @message = "お問い合わせを送信しました"
     erb :contact
   end
   ##################################
