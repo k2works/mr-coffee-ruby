@@ -29,6 +29,7 @@ Aws.config.update(region: ENV["AWS_DEFAULT_REGION"])
 Aws.config.update(endpoint: ENV["DB_ENDPOINT"])
 
 require_all "app/models"
+require_all "app/services"
 
 class App < Sinatra::Base
   configure do
@@ -82,32 +83,22 @@ class App < Sinatra::Base
 
   post "/api/contact/create" do
     content_type :json
-    cfg =
-      Aws::Record::TableConfig.define do |t|
-        t.model_class(Contact)
-        t.read_capacity_units(1)
-        t.write_capacity_units(1)
-      end
-    cfg.migrate!
+    service = ContactService.new
+    service.create
     { Message: "問い合わせテーブルを作成しました" }.to_json
   end
 
   post "/api/contact/save" do
     content_type :json
-    item = Contact.new(id: SecureRandom.uuid, ts: Time.now)
-    item.name = params[:name]
-    item.email = params[:email]
-    item.questionnaire = params[:questionnaire]
-    item.category = params[:category]
-    item.message = params[:message]
-    item.save!
+    service = ContactService.new
+    service.save(params)
     { Message: "問い合わせを送信しました" }.to_json
   end
 
   post "/api/contact/drop" do
     content_type :json
-    migration = Aws::Record::TableMigration.new(Contact)
-    migration.delete!
+    service = ContactService.new
+    service.drop
     { Message: "問い合わせテーブルを削除しました" }.to_json
   end
 end
