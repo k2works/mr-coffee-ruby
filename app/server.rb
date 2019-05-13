@@ -79,4 +79,19 @@ class App < Sinatra::Base
     content_type :json
     { Output: "Hello World!" }.to_json
   end
+
+  post "/api/contact/create" do
+    content_type :json
+    { Message: "問い合わせテーブルを作成しました" }.to_json
+  end
+
+  post "/api/contact/save" do
+    content_type :json
+    { Message: "問い合わせを送信しました" }.to_json
+  end
+
+  post "/api/contact/drop" do
+    content_type :json
+    {Message: "問い合わせテーブルを削除しました"}.to_json
+  end
 end
