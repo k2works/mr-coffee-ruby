@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../app/server.rb'
 require 'rack/test'
+require 'require_all'
 
+require_all 'app'
 ENV['APP_ENV'] = 'test'
 
 def app

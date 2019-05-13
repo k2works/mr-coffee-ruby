@@ -82,6 +82,13 @@ class App < Sinatra::Base
 
   post "/api/contact/create" do
     content_type :json
+    cfg =
+      Aws::Record::TableConfig.define do |t|
+        t.model_class(Contact)
+        t.read_capacity_units(1)
+        t.write_capacity_units(1)
+      end
+    cfg.migrate!
     { Message: "問い合わせテーブルを作成しました" }.to_json
   end
 
@@ -92,6 +99,6 @@ class App < Sinatra::Base
 
   post "/api/contact/drop" do
     content_type :json
-    {Message: "問い合わせテーブルを削除しました"}.to_json
+    { Message: "問い合わせテーブルを削除しました" }.to_json
   end
 end
