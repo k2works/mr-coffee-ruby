@@ -106,6 +106,8 @@ class App < Sinatra::Base
 
   post "/api/contact/drop" do
     content_type :json
+    migration = Aws::Record::TableMigration.new(Contact)
+    migration.delete!
     { Message: "問い合わせテーブルを削除しました" }.to_json
   end
 end

@@ -100,6 +100,8 @@ describe 'Contact Api' do
 
   it '問い合わせテーブルを削除する' do
     post '/api/contact/drop'
+    migration = Aws::Record::TableMigration.new(Contact, client: stub_client)
+    migration.delete!
     expect(last_response).to be_ok
     expect(json_result['Message']).to eq('問い合わせテーブルを削除しました')
   end
