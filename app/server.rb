@@ -94,6 +94,13 @@ class App < Sinatra::Base
 
   post "/api/contact/save" do
     content_type :json
+    item = Contact.new(id: SecureRandom.uuid, ts: Time.now)
+    item.name = params[:name]
+    item.email = params[:email]
+    item.questionnaire = params[:questionnaire]
+    item.category = params[:category]
+    item.message = params[:message]
+    item.save!
     { Message: "問い合わせを送信しました" }.to_json
   end
 

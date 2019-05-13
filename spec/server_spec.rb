@@ -86,7 +86,14 @@ describe 'Contact Api' do
   end
 
   it '問い合わせ内容を送信する' do
-    post '/api/contact/save'
+    params = {
+        name: 'お名前',
+        email: 'mail@hoge.com',
+        questionnaire: 'answer1',
+        category: 'category1',
+        message: 'メッセージ'
+    }
+    post '/api/contact/save', params
     expect(last_response).to be_ok
     expect(json_result['Message']).to eq('問い合わせを送信しました')
   end
