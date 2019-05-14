@@ -5,15 +5,16 @@
   "main": "",
   "dependencies": {},
   "devDependencies": {
+    "@prettier/plugin-ruby": "^0.12.2",
     "browser-sync": "^2.26.5",
     "connect-browser-sync": "^2.1.0",
     "cpx": "^1.5.0",
     "foreman": "^3.0.1",
     "npm-run-all": "^4.1.5",
+    "prettier": "^1.17.0",
     "rimraf": "^2.6.3",
-    "watch": "^1.0.2",
-    "@prettier/plugin-ruby": "^0.12.2",
-    "prettier": "^1.17.0"
+    "startbootstrap-sb-admin-2": "^4.0.3",
+    "watch": "^1.0.2"
   },
   "config": {
     "app_dir": "./",
@@ -59,6 +60,7 @@
     "aws:sam:package": "sam package --template-file $npm_package_config_app_dir/.aws-sam/build/template.yaml --s3-bucket $npm_package_config_s3_bucket --output-template-file $npm_package_config_app_dir/.aws-sam/packaged.yaml",
     "aws:sam:deploy": "sam deploy --template-file $npm_package_config_app_dir/.aws-sam/packaged.yaml --stack-name $npm_package_config_stack_name --capabilities CAPABILITY_NAMED_IAM  --parameter-overrides Stage=$npm_package_config_stage ApiUrl=$npm_package_config_api_url --region $npm_package_config_region",
     "aws:sam:describe": "aws --region $npm_package_config_region cloudformation describe-stacks --stack-name $npm_package_config_stack_name",
+    "aws:sam:release:develop": "npm-run-all aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
     "aws:sam:release": "npm-run-all test aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
     "aws:sam:destroy": "aws --region $npm_package_config_region cloudformation delete-stack --stack-name $npm_package_config_stack_name"
   },

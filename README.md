@@ -61,6 +61,13 @@ npm run aws:s3:create
 npm run db:setup
 ```
 
+#### SBAdminの導入
+ 
+```bash
+npm install startbootstrap-sb-admin-2 --save-dev
+cp -r node_modules/startbootstrap-sb-admin-2 app/views/admin
+```
+
 **[⬆ back to top](#構成)**
 
 ### 配置
