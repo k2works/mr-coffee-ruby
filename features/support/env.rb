@@ -6,6 +6,8 @@ require 'capybara/cucumber'
 require 'selenium-webdriver'
 require 'capybara-screenshot/cucumber'
 
+ENV['APP_ENV'] = 'test'
+
 # Capybara自体の設定、ここではどのドライバーを使うかを設定しています
 Capybara.configure do |capybara_config|
   capybara_config.default_driver = :selenium_chrome
