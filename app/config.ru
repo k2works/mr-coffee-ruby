@@ -2,6 +2,6 @@
 
 require 'rack'
 require 'rack/contrib'
-require_relative './server'
+require_relative './config/environment'
 
 run App

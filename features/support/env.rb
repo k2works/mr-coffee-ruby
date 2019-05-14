@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../app/server'
+require_relative '../../app/config/environment'
 
 require 'capybara/cucumber'
 require 'selenium-webdriver'
@@ -22,7 +22,7 @@ Capybara.register_driver :selenium_chrome do |app|
 end
 
 # Custom screenshot directory
-Capybara.save_path = '../tmp/capybara'
+Capybara.save_path = '../../tmp/capybara'
 
 World do
   Capybara.app = App

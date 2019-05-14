@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-# Tests for server.rb
+# Tests for environment.rb
 describe 'HelloWorld Service' do
   include Rack::Test::Methods
 

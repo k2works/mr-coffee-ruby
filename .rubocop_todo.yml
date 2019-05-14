@@ -17,7 +17,7 @@ Layout/TrailingBlankLines:
 # Offense count: 1
 Lint/AmbiguousBlockAssociation:
   Exclude:
-    - 'app/server.rb'
+    - 'app/environment.rb'
 
 # Offense count: 1
 Lint/RescueException:
@@ -88,7 +88,7 @@ Style/Documentation:
     - 'spec/**/*'
     - 'test/**/*'
     - 'app/models/contact.rb'
-    - 'app/server.rb'
+    - 'app/environment.rb'
     - 'app/services/contact_service.rb'
     - 'db/migrate/20190511085049_create_contacts.rb'
     - 'features/step_definitions/stepdefs.rb'
@@ -112,7 +112,7 @@ Style/IfUnlessModifier:
 Style/StringLiterals:
   Exclude:
     - 'app/lambda.rb'
-    - 'app/server.rb'
+    - 'app/environment.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -120,7 +120,7 @@ Style/StringLiterals:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiteralsInInterpolation:
   Exclude:
-    - 'app/server.rb'
+    - 'app/environment.rb'
 
 # Offense count: 18
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

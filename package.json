@@ -21,7 +21,7 @@
     "stack_name": "mr-coffee-ruby-lambda",
     "region": "us-east-1",
     "stage": "Development",
-    "api_url": "",
+    "api_url": "https://iws61zofzj.execute-api.us-east-1.amazonaws.com/Prod/",
     "local_network": "lambda-local",
     "local_db": "dynamodb"
   },
