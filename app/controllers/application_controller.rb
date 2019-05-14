@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class App < Sinatra::Base
   configure do
     if ENV["SINATRA_ENV"] == "production"
-      set :views => 'views'
-      set :public_folder => 'views/public'
+      set views: "views"
+      set public_folder: "views/public"
     else
-      set :views => 'app/views'
-      set :public_folder => 'app/views/public'
+      set views: "app/views"
+      set public_folder: "app/views/public"
     end
   end
 
@@ -31,38 +33,5 @@ class App < Sinatra::Base
 
     @message = "お問い合わせを送信しました"
     erb :contact
-  end
-  ##################################
-  # Return a Hello world JSON
-  ##################################
-  get "/hello-world" do
-    content_type :json
-    { Output: "Hello World!" }.to_json
-  end
-
-  post "/hello-world" do
-    content_type :json
-    { Output: "Hello World!" }.to_json
-  end
-
-  post "/api/contact/create" do
-    content_type :json
-    service = ContactService.new
-    service.create
-    { Message: "問い合わせテーブルを作成しました" }.to_json
-  end
-
-  post "/api/contact/save" do
-    content_type :json
-    service = ContactService.new
-    service.save(params)
-    { Message: "問い合わせを送信しました" }.to_json
-  end
-
-  post "/api/contact/drop" do
-    content_type :json
-    service = ContactService.new
-    service.drop
-    { Message: "問い合わせテーブルを削除しました" }.to_json
   end
 end

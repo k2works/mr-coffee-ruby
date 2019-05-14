@@ -15,9 +15,9 @@ if ENV["SINATRA_ENV"] == "production"
   require "active_record"
   require "require_all"
 
-  require_all 'controllers'
-  require_all 'models'
-  require_all 'services'
+  require_all "controllers"
+  require_all "models"
+  require_all "services"
   service = ContactService.new
   service.create
 else
@@ -25,12 +25,15 @@ else
   Bundler.require(:default, ENV["SINATRA_ENV"])
 
   ActiveRecord::Base.establish_connection(
-      adapter: "sqlite3", database: "db/#{ENV["SINATRA_ENV"]}.sqlite"
+    adapter: "sqlite3", database: "db/#{ENV["SINATRA_ENV"]}.sqlite"
   )
 
   Aws.config.update(
-      credentials:
-          Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
+    credentials:
+      Aws::Credentials.new(
+        ENV["AWS_ACCESS_KEY_ID"],
+        ENV["AWS_SECRET_ACCESS_KEY"]
+      )
   )
   Aws.config.update(region: ENV["AWS_DEFAULT_REGION"])
   Aws.config.update(endpoint: ENV["DB_ENDPOINT"])

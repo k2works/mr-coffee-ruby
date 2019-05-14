@@ -17,4 +17,3 @@ class CreateContacts < ActiveRecord::Migration
     migration.delete!
   end
 end
-
