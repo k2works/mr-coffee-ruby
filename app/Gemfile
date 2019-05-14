@@ -14,3 +14,4 @@ gem 'rubysl-base64'
 gem 'sinatra'
 gem 'sinatra-activerecord', require: 'sinatra/activerecord'
 gem 'sinatra-contrib', require: false
+gem "sinatra-cross_origin", "~> 0.3.1"

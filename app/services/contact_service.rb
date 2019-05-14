@@ -14,7 +14,11 @@ class ContactService
 
     Contact.configure_client(client: opt[:stub]) if ENV['APP_ENV'] == 'test'
     @item = Contact.new(id: SecureRandom.uuid, ts: Time.now)
-    @migration = Aws::Record::TableMigration.new(Contact, client: opt[:stub]) if ENV['APP_ENV'] == 'test'
+    if ENV['APP_ENV'] == 'test'
+      @migration = Aws::Record::TableMigration.new(Contact, client: opt[:stub])
+    else
+      @migration = Aws::Record::TableMigration.new(Contact)
+    end
   end
 
   def create

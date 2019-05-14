@@ -14,6 +14,8 @@ if ENV['SINATRA_ENV'] == 'production'
   require 'aws-record'
   require 'active_record'
   require 'require_all'
+  require 'sinatra/cross_origin'
+
 
   require_all 'controllers'
   require_all 'models'

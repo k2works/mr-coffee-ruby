@@ -272,7 +272,7 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-          <div id="apiUrl" hidden><%= @apiUrl %></div>
+          <div id="apiUrl" hidden><%= @api_url %></div>
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">System</h1>
           <div class="result"></div>
@@ -281,13 +281,13 @@
               <div class="card mb-8">
                 <div class="card-body d-flex justify-content-between">
                   <h5 class="card-title">問い合わせテーブル</h5>
-                  <button class="btn btn-primary" onclick="createTable()">
+                  <button class="btn btn-primary" onclick="createTable('contact')">
                     作成
                   </button>
-                  <button class="btn btn-danger" onclick="dropTable()">
+                  <button class="btn btn-danger" onclick="dropTable('contact')">
                     削除
                   </button>
-                  <button class="btn btn-success" onclick="seedData()">
+                  <button class="btn btn-success" onclick="seedData('contact')">
                     ダミーデータ生成
                   </button>
                 </div>
@@ -362,21 +362,21 @@
   //]]></script>
 
   <script>
-    function createTable() {
+    function createTable(table) {
       const baseUrl = document.querySelector('#apiUrl').innerHTML;
-      const apiUrl = `${baseUrl}/api/create`;
+      const apiUrl = `${baseUrl}/api/${table}/create`;
       apiCall(apiUrl, 'POST');
     }
 
-    function dropTable() {
+    function dropTable(table) {
       const baseUrl = document.querySelector('#apiUrl').innerHTML;
-      const apiUrl = `${baseUrl}/api/drop`;
+      const apiUrl = `${baseUrl}/api/${table}/drop`;
       apiCall(apiUrl, 'POST');
     }
 
-    function seedData() {
+    function seedData(table) {
       const baseUrl = document.querySelector('#apiUrl').innerHTML;
-      const apiUrl = `${baseUrl}/api/seed`;
+      const apiUrl = `${baseUrl}/api/${table}/seed`;
       apiCall(apiUrl, 'POST');
     }
 
@@ -386,6 +386,7 @@
         document.querySelector('.result').innerHTML = data.Message;
       }
 
+      document.querySelector('.result').innerHTML = '処理中...';
       $.ajax({
         url: url,
         type: method,

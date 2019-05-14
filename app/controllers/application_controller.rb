@@ -11,6 +11,14 @@ class App < Sinatra::Base
     end
   end
 
+  def set_api_url
+    if ENV['SINATRA_ENV'] == 'production'
+      @api_url = ENV['API_URL']
+    else
+      @api_url = "http://localhost:9292"
+    end
+  end
+
   ##################################
   # For the index page
   ##################################
@@ -44,7 +52,7 @@ class App < Sinatra::Base
   end
 
   get '/admin-system' do
-    @apiUrl = ""
+    set_api_url
     erb :"admin/system.html"
   end
 
