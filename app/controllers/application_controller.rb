@@ -39,6 +39,15 @@ class App < Sinatra::Base
     erb :"admin/index.html"
   end
 
+  get '/admin-contact' do
+    erb :"admin/contact.html"
+  end
+
+  get '/admin-system' do
+    @apiUrl = ""
+    erb :"admin/system.html"
+  end
+
   get '/admin-buttons' do
     erb :'admin/buttons.html'
   end
