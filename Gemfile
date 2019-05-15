@@ -16,6 +16,7 @@ gem 'sinatra-activerecord', require: 'sinatra/activerecord'
 gem 'sinatra-contrib', require: false
 gem 'sqlite3', '~> 1.3.6'
 gem "sinatra-cross_origin", "~> 0.3.1"
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 
 group :test do
   gem 'capybara'

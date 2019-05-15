@@ -39,6 +39,20 @@ class ContactService
     @migration.delete!
   end
 
+  def seed
+    (1..10).each do |i|
+      param = {
+          id: i,
+          name: Faker::JapaneseMedia::SwordArtOnline.game_name,
+          email: Faker::Internet.email,
+          questionnaire: "answer#{i}",
+          category: "category#{i}",
+          message: Faker::JapaneseMedia::SwordArtOnline.item
+      }
+      save(param)
+    end
+  end
+
   def select_all
     @model.scan.to_a.map do |item|
       {

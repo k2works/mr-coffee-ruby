@@ -33,6 +33,15 @@ class App < Sinatra::Base
     { Message: "問い合わせテーブルを削除しました" }.to_json
   end
 
+  post "/api/contact/seed" do
+    content_type :json
+    headers "Access-Control-Allow-Origin" => "*"
+
+    service = ContactService.new
+    service.seed
+    { Message: "ダミーデータを作成しました" }.to_json
+  end
+
   post "/api/contact/select_all" do
     content_type :json
     headers "Access-Control-Allow-Origin" => "*"
