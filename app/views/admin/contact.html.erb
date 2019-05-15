@@ -273,49 +273,17 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
+          <div id="apiUrl" hidden><%= @api_url %></div>
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Contact</h1>
-
+          <div class="result"></div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">お問い合わせ</h6>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                  <tr>
-                    <th hidden>ID</th>
-                    <th>お名前</th>
-                    <th>メールアドレス</th>
-                    <th>Mr.M COFFEEを知ったきっかけ</th>
-                    <th>お問い合わせ</th>
-                    <th>お問い合わせ内容</th>
-                  </tr>
-                  </thead>
-                  <tfoot>
-                  <tr>
-                    <th hidden>ID</th>
-                    <th>お名前</th>
-                    <th>メールアドレス</th>
-                    <th>Mr.M COFFEEを知ったきっかけ</th>
-                    <th>お問い合わせ</th>
-                    <th>お問い合わせ内容</th>
-                  </tr>
-                  </tfoot>
-                  <tbody>
-                  <tr>
-                    <td hidden>item.id</td>
-                    <td>item.name</td>
-                    <td>item.email</td>
-                    <td>item.questionnaire</td>
-                    <td>item.category</td>
-                    <td>item.message</td>
-                  </tr>
-                  </tbody>
-                </table>
+              <div id="contact-table"></div>
             </div>
           </div>
 
@@ -382,6 +350,93 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
 
+  <script>
+      function selectAllTable(table, callback) {
+          const baseUrl = document.querySelector('#apiUrl').innerHTML;
+          const apiUrl = `${baseUrl}/api/${table}/select_all`;
+          apiCall(apiUrl, 'POST', callback);
+      }
+
+      function apiCall(url, method, callback) {
+          document.querySelector('.result').innerHTML = '処理中...';
+          $.ajax({
+              url: url,
+              type: method,
+              data: {}
+          })
+              .done((data) => {
+                  $('#result').html(data);
+                  callback(data);
+              })
+              .fail((data) => {
+                  $('#result').html(data);
+                  callback(data);
+              })
+              .always((data) => {
+              });
+      }
+  </script>
+
+    <script>
+      function renderContacts() {
+          const renderTable = (data) => {
+              if (data.Message !== undefined) {
+                  document.querySelector('.result').innerHTML = data.Message;
+              } else {
+                  document.querySelector('.result').innerHTML = "検索を実行しました";
+              }
+
+              const record = (data) => {
+                  console.log(data);
+                  let record = '';
+                  data.forEach((item) => {
+                   record += `
+                   <tr>
+                    <td hidden>${data}</td>
+                    <td>${item.name}</td>
+                    <td>${item.email}</td>
+                    <td>${item.questionnaire}</td>
+                    <td>${item.category}</td>
+                    <td>${item.message}</td>
+                  </tr>
+                  `;
+                  });
+                  return record;
+              };
+
+              document.querySelector("#contact-table").innerHTML = `
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
+                  <thead>
+                  <tr>
+                    <th hidden>ID</th>
+                    <th>お名前</th>
+                    <th>メールアドレス</th>
+                    <th>Mr.M COFFEEを知ったきっかけ</th>
+                    <th>お問い合わせ</th>
+                    <th>お問い合わせ内容</th>
+                  </tr>
+                  </thead>
+                  <tfoot>
+                  <tr>
+                    <th hidden>ID</th>
+                    <th>お名前</th>
+                    <th>メールアドレス</th>
+                    <th>Mr.M COFFEEを知ったきっかけ</th>
+                    <th>お問い合わせ</th>
+                    <th>お問い合わせ内容</th>
+                  </tr>
+                  </tfoot>
+                  <tbody>
+                   ${record(data)}
+                  </tbody>
+                </table>
+              `;
+          };
+
+          selectAllTable('contact', renderTable);
+      }
+      renderContacts();
+    </script>
 </body>
 
 </html>

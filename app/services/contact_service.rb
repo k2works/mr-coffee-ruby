@@ -4,17 +4,18 @@ class ContactService
   attr_reader :cfg, :item
 
   def initialize(opt = {})
+    @model = Contact
     @cfg =
       Aws::Record::TableConfig.define do |t|
         t.model_class(Contact)
         t.read_capacity_units(1)
         t.write_capacity_units(1)
-        t.client_options(stub_responses: true) if ENV['APP_ENV'] == 'test'
+        t.client_options(stub_responses: true) if ENV["APP_ENV"] == "test"
       end
 
-    Contact.configure_client(client: opt[:stub]) if ENV['APP_ENV'] == 'test'
-    @item = Contact.new(id: SecureRandom.uuid, ts: Time.now)
-    if ENV['APP_ENV'] == 'test'
+    @model.configure_client(client: opt[:stub]) if ENV["APP_ENV"] == "test"
+    @item = @model.new(id: SecureRandom.uuid, ts: Time.now)
+    if ENV["APP_ENV"] == "test"
       @migration = Aws::Record::TableMigration.new(Contact, client: opt[:stub])
     else
       @migration = Aws::Record::TableMigration.new(Contact)
@@ -36,5 +37,18 @@ class ContactService
 
   def drop
     @migration.delete!
+  end
+
+  def select_all
+    @model.scan.to_a.map do |item|
+      {
+          id: item.id.to_i,
+          name: item.name,
+          email: item.email,
+          questionnaire: item.questionnaire,
+          category: item.category,
+          message: item.message
+      }
+    end
   end
 end

@@ -17,3 +17,17 @@ end
 ならば(/^お問い合わせ一覧に"([^"]*)"が表示される$/) do |content|
   expect(page).to have_content content
 end
+
+ならば(/^お問い合わせ内容"([^"]*)","([^"]*)","([^"]*)","([^"]*)","([^"]*)"が表示される$/) do
+   |name,
+    email,
+    questionnaire,
+    category,
+    message|
+
+  expect(page).to have_content name
+  expect(page).to have_content email
+  expect(page).to have_content questionnaire
+  expect(page).to have_content category
+  expect(page).to have_content message
+end
