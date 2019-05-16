@@ -11,3 +11,15 @@
   end
 end
 
+def login
+  visit '/admin-login'
+  fill_in 'exampleInputEmail', with: 'test@test.com'
+  fill_in 'exampleInputPassword', with: 'password'
+  click_on 'Login'
+end
+
+def logout
+  find("#userDropdown > img").click
+  find("#content > nav > ul > li.nav-item.dropdown.no-arrow.show > div > a:nth-child(5)").click
+  click_on "Logout"
+end
