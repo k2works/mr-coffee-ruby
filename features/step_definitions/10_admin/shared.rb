@@ -19,7 +19,7 @@ def login
 end
 
 def logout
-  find("#userDropdown > img").click
-  find("#content > nav > ul > li.nav-item.dropdown.no-arrow.show > div > a:nth-child(5)").click
-  click_on "Logout"
+  find('#userDropdown > img').click
+  find('#content > nav > ul > li.nav-item.dropdown.no-arrow.show > div > a:nth-child(5)').click
+  click_on 'Logout'
 end

@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
-もし(/^お問い合わせ内容"([^"]*)","([^"]*)","([^"]*)","([^"]*)","([^"]*)"を入力して$/) do
-|name,
-email,
-questionnaire,
-category,
-message|
-
+もし(/^お問い合わせ内容"([^"]*)","([^"]*)","([^"]*)","([^"]*)","([^"]*)"を入力して$/) do |name, email, questionnaire, category, message|
   fill_in 'name', with: name
   fill_in 'email', with: email
   choose questionnaire

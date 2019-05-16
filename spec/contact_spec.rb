@@ -83,13 +83,13 @@ describe 'Contact Service' do
                                  condition_expression: 'attribute_not_exists(#H) and attribute_not_exists(#R)',
                                  expression_attribute_names: { '#H' => 'id', '#R' => 'name' },
                                  item: {
-                                     'category' => { s: 'category1' },
-                                     'email' => { s: 'mail@hoge.com' },
-                                     'id' => { n: '1' },
-                                     'message' => { s: 'メッセージ' },
-                                     'name' => { s: 'お名前' },
-                                     'questionnaire' => { s: 'answer1' },
-                                     'ts' => { n: '1' }
+                                   'category' => { s: 'category1' },
+                                   'email' => { s: 'mail@hoge.com' },
+                                   'id' => { n: '1' },
+                                   'message' => { s: 'メッセージ' },
+                                   'name' => { s: 'お名前' },
+                                   'questionnaire' => { s: 'answer1' },
+                                   'ts' => { n: '1' }
                                  },
                                  table_name: 'Contact'
                                }])
@@ -107,32 +107,30 @@ describe 'Contact Service' do
     service = ContactService.new(stub: stub_client)
     stub_client = configure_test_client(service.cfg.client)
     stub_client.stub_responses(:scan,
-                               {
-                                   items: [
-                                       {
-                                           'category' => { s: 'category1' },
-                                           'email' => { s: 'mail@hoge.com' },
-                                           'id' => { n: '1' },
-                                           'message' => { s: 'メッセージ' },
-                                           'name' => { s: 'お名前' },
-                                           'questionnaire' => { s: 'answer1' },
-                                           'ts' => { n: '1' }
-                                       },
-                                       {
-                                           'category' => { s: 'category1' },
-                                           'email' => { s: 'mail@hoge.com' },
-                                           'id' => { n: '2' },
-                                           'message' => { s: 'メッセージ' },
-                                           'name' => { s: 'お名前' },
-                                           'questionnaire' => { s: 'answer1' },
-                                           'ts' => { n: '1' }
-                                       }
-                                   ],
-                                   count: 2,
-                                   scanned_count: 2,
-                                   last_evaluated_key: nil
-                               })
+                               items: [
+                                 {
+                                   'category' => { s: 'category1' },
+                                   'email' => { s: 'mail@hoge.com' },
+                                   'id' => { n: '1' },
+                                   'message' => { s: 'メッセージ' },
+                                   'name' => { s: 'お名前' },
+                                   'questionnaire' => { s: 'answer1' },
+                                   'ts' => { n: '1' }
+                                 },
+                                 {
+                                   'category' => { s: 'category1' },
+                                   'email' => { s: 'mail@hoge.com' },
+                                   'id' => { n: '2' },
+                                   'message' => { s: 'メッセージ' },
+                                   'name' => { s: 'お名前' },
+                                   'questionnaire' => { s: 'answer1' },
+                                   'ts' => { n: '1' }
+                                 }
+                               ],
+                               count: 2,
+                               scanned_count: 2,
+                               last_evaluated_key: nil)
     result = service.select_all
-    expect(api_requests).to eq([{ table_name: "Contact" }])
+    expect(api_requests).to eq([{ table_name: 'Contact' }])
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 前提(/^問い合わせテーブルが存在しない$/) do
   login

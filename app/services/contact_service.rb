@@ -10,16 +10,17 @@ class ContactService
         t.model_class(Contact)
         t.read_capacity_units(1)
         t.write_capacity_units(1)
-        t.client_options(stub_responses: true) if ENV["APP_ENV"] == "test"
+        t.client_options(stub_responses: true) if ENV['APP_ENV'] == 'test'
       end
 
-    @model.configure_client(client: opt[:stub]) if ENV["APP_ENV"] == "test"
+    @model.configure_client(client: opt[:stub]) if ENV['APP_ENV'] == 'test'
     @item = @model.new(id: SecureRandom.uuid, ts: Time.now)
-    if ENV["APP_ENV"] == "test"
-      @migration = Aws::Record::TableMigration.new(Contact, client: opt[:stub])
-    else
-      @migration = Aws::Record::TableMigration.new(Contact)
-    end
+    @migration =
+      if ENV['APP_ENV'] == 'test'
+        Aws::Record::TableMigration.new(Contact, client: opt[:stub])
+      else
+        Aws::Record::TableMigration.new(Contact)
+      end
   end
 
   def create
@@ -42,12 +43,12 @@ class ContactService
   def seed
     (1..10).each do |i|
       param = {
-          id: i,
-          name: Faker::JapaneseMedia::SwordArtOnline.game_name,
-          email: Faker::Internet.email,
-          questionnaire: "answer#{i}",
-          category: "category#{i}",
-          message: Faker::JapaneseMedia::SwordArtOnline.item
+        id: i,
+        name: Faker::JapaneseMedia::SwordArtOnline.game_name,
+        email: Faker::Internet.email,
+        questionnaire: "answer#{i}",
+        category: "category#{i}",
+        message: Faker::JapaneseMedia::SwordArtOnline.item
       }
       save(param)
     end
@@ -56,12 +57,12 @@ class ContactService
   def select_all
     @model.scan.to_a.map do |item|
       {
-          id: item.id.to_i,
-          name: item.name,
-          email: item.email,
-          questionnaire: item.questionnaire,
-          category: item.category,
-          message: item.message
+        id: item.id.to_i,
+        name: item.name,
+        email: item.email,
+        questionnaire: item.questionnaire,
+        category: item.category,
+        message: item.message
       }
     end
   end
