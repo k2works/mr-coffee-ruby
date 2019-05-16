@@ -42,7 +42,7 @@
     "watch:test": "watch 'npm-run-all test format linter:fix' $npm_package_config_app_dir/app/spec",
     "app:build": "cd $npm_package_config_app_dir; bundle install",
     "app:front": "browser-sync start --config bs-config.js",
-    "app:server": "cd $npm_package_config_app_dir; bundle exec rackup app/config.ru",
+    "app:server": "cd $npm_package_config_app_dir; bundle exec shotgun -p 9292 app/config.ru",
     "app:api": "cd $npm_package_config_app_dir; sam local start-api --host 0.0.0.0 --port 4000 --template .aws-sam/build/template.yaml",
     "db:setup": "npm-run-all db:setup:*",
     "db:setup:network": "docker network create $npm_package_config_local_network",
