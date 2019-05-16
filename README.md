@@ -2,6 +2,8 @@
 
 ## 概要
 
+![アーキテクチャ](docs/assets/ArchitectureDiagram.png)
+
 ### 目的
 
 ### 前提
