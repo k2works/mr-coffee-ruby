@@ -2,6 +2,8 @@
 
 ## 概要
 
+### システムアーキテクチャ
+
 ![アーキテクチャ](docs/assets/ArchitectureDiagram.png)
 
 ### 目的
