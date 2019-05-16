@@ -1,46 +1,25 @@
 # frozen_string_literal: true
 
-class ContactRepository
-  attr_reader :cfg, :item
+require_relative 'dynamodb_repository'
 
+class ContactRepository < DynamodbRepository
   def initialize(opt = {})
     @model = Contact
-    @cfg =
-      Aws::Record::TableConfig.define do |t|
-        t.model_class(Contact)
-        t.read_capacity_units(1)
-        t.write_capacity_units(1)
-        t.client_options(stub_responses: true) if ENV['APP_ENV'] == 'test'
-      end
-
-    @model.configure_client(client: opt[:stub]) if ENV['APP_ENV'] == 'test'
-    @migration =
-      if ENV['APP_ENV'] == 'test'
-        Aws::Record::TableMigration.new(Contact, client: opt[:stub])
-      else
-        Aws::Record::TableMigration.new(Contact)
-      end
-  end
-
-  def new
-    @item = @model.new(id: SecureRandom.uuid, ts: Time.now)
-  end
-
-  def create
-    @cfg.migrate!
+    super(opt)
   end
 
   def save(params)
-    @item.name = params[:name]
-    @item.email = params[:email]
-    @item.questionnaire = params[:questionnaire]
-    @item.category = params[:category]
-    @item.message = params[:message]
-    @item.save!
+    item = new
+    item.name = params[:name]
+    item.email = params[:email]
+    item.questionnaire = params[:questionnaire]
+    item.category = params[:category]
+    item.message = params[:message]
+    item.save!
   end
 
-  def drop
-    @migration.delete!
+  def find(params)
+    @model.find(id: params[:id], name: params[:name])
   end
 
   def seed

@@ -72,27 +72,10 @@ describe 'Contact Service' do
       category: 'category1',
       message: 'メッセージ'
     }
-    service = ContactService.new(stub: stub_client)
-    item = service.new
-    expect(item.new_record?).to be(true)
-    item.id = 1
-    item.ts = 1
+   service = ContactService.new(stub: stub_client)
     service.save(params)
-    expect(item.new_record?).to be(false)
-    expect(api_requests).to eq([{
-                                 condition_expression: 'attribute_not_exists(#H) and attribute_not_exists(#R)',
-                                 expression_attribute_names: { '#H' => 'id', '#R' => 'name' },
-                                 item: {
-                                   'category' => { s: 'category1' },
-                                   'email' => { s: 'mail@hoge.com' },
-                                   'id' => { n: '1' },
-                                   'message' => { s: 'メッセージ' },
-                                   'name' => { s: 'お名前' },
-                                   'questionnaire' => { s: 'answer1' },
-                                   'ts' => { n: '1' }
-                                 },
-                                 table_name: 'Contact'
-                               }])
+    result = service.find({id:1, name:"お名前"})
+    expect(api_requests.last).to eq( {:key=>{"id"=>{:n=>"1"}, "name"=>{:s=>"お名前"}}, :table_name=>"Contact"})
   end
 
   it '問い合わせテーブルを削除する' do

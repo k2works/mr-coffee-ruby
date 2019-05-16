@@ -8,10 +8,6 @@ class ContactService
     @cfg_client = @repository.cfg.client
   end
 
-  def new
-    @repository.new
-  end
-
   def create
     @repository.create
   end
@@ -30,5 +26,9 @@ class ContactService
 
   def select_all
     @repository.select_all
+  end
+
+  def find(params)
+    @repository.find(params)
   end
 end

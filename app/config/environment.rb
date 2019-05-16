@@ -19,6 +19,7 @@ if ENV['SINATRA_ENV'] == 'production'
   require_all 'controllers'
   require_all 'models'
   require_all 'services'
+  require_all 'repositories'
   service = ContactService.new
   service.create
 else
