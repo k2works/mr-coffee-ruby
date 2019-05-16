@@ -18,11 +18,11 @@
   },
   "config": {
     "app_dir": "./",
-    "s3_bucket": "mr-coffee-ruby",
-    "stack_name": "mr-coffee-ruby-lambda",
+    "s3_bucket": "mr-mcoffee-ruby",
+    "stack_name": "mr-mcoffee-ruby-lambda",
     "region": "us-east-1",
     "stage": "Development",
-    "api_url": "https://iws61zofzj.execute-api.us-east-1.amazonaws.com/Prod/",
+    "api_url": "https://cpikfx3u12.execute-api.us-east-1.amazonaws.com/Prod/",
     "local_network": "lambda-local",
     "local_db": "dynamodb"
   },
@@ -63,14 +63,18 @@
     "aws:sam:build": "cd $npm_package_config_app_dir; sam build",
     "aws:sam:package": "sam package --template-file $npm_package_config_app_dir/.aws-sam/build/template.yaml --s3-bucket $npm_package_config_s3_bucket --output-template-file $npm_package_config_app_dir/.aws-sam/packaged.yaml",
     "aws:sam:deploy": "sam deploy --template-file $npm_package_config_app_dir/.aws-sam/packaged.yaml --stack-name $npm_package_config_stack_name --capabilities CAPABILITY_NAMED_IAM  --parameter-overrides Stage=$npm_package_config_stage ApiUrl=$npm_package_config_api_url --region $npm_package_config_region",
-    "aws:sam:describe": "aws --region $npm_package_config_region cloudformation describe-stacks --stack-name $npm_package_config_stack_name",
+    "aws:sam:describe": "aws --region $npm_package_config_region cloudformation describe-stacks --stack-name $npm_package_config_stack_name --output table",
     "aws:sam:release:develop": "npm-run-all aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
     "aws:sam:release": "npm-run-all test aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
     "aws:sam:destroy": "aws --region $npm_package_config_region cloudformation delete-stack --stack-name $npm_package_config_stack_name",
     "doc": "npm-run-all test:feature:doc doc:feature:* doc:open",
     "doc:feature:html": "docker run -v \"$PWD:/output\" rmpestano/cukedoctor -p /output/cucumber.json -f html -toc left -numbered -o /output/docs/generated_doc/documentation",
     "doc:feature:pdf": "docker run -v \"$PWD:/output\" rmpestano/cukedoctor -p /output/cucumber.json -f pdf -o /output/docs/generated_doc/documentation",
-    "doc:open": "open ./docs/generated_doc/documentation.html"
+    "doc:open": "open ./docs/generated_doc/documentation.html",
+    "doc:slide": "npm-run-all doc:slide:server doc:slide:watch",
+    "doc:slide:server": "cd docs/PITCHME; browser-sync start --server --files '**/*'",
+    "doc:slide:build": "cpx docs/PITCHME/assets/md/PITCHME.md .",
+    "doc:slide:watch": "watch 'npm run doc:slide:build' ./docs --flilter=*.md"
   },
   "repository": {
     "type": "git",

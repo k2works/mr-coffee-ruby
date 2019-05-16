@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>GitPitch Slide Deck</title>
+    <meta name="description" content="The Markdown Presentation Service on Git.">
+    <meta name="keywords" content="Markdown, Presentation, Slideshow, Developer, Git, GitHub, GitLab, Bitbucket, PITCHME">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    
+
+
+    
+
+
+    
+
+
+    
+<link href="./assets/reveal.js/3.7.0/css/reveal.css" rel="stylesheet" type="text/css"/>
+<link href="./assets/reveal.js/3.7.0/css/theme/white.css" rel="stylesheet" type="text/css" id="theme"/>
+<link href="./assets/reveal.js/3.7.0/plugin/title-footer/title-footer-mod.css" rel="stylesheet" type="text/css" id="theme"/>
+
+<link href="./assets/reveal.js/3.7.0/css/print/paper.css" rel="stylesheet" type="text/css"/>
+
+
+<link href="./assets/highlight.js/9.13.1/hybrid.css" rel="stylesheet" type="text/css"/>
+<link href="./assets/octicons/3.5.0/octicons.css" rel="stylesheet" type="text/css"/>
+<link href="./assets/font-awesome/5.7.2/css/fa-all.min.css" rel="stylesheet" type="text/css"/>
+<link href="./assets/font-awesome/5.7.2/css/fa-v4-shims.min.css" rel="stylesheet" type="text/css"/>
+
+<link href="./assets/css/pitchcore.css" rel="stylesheet" type="text/css"/>
+
+
+
+
+<link href="./assets/css/pitch.css" rel="stylesheet" type="text/css"/>
+
+<link href="./assets/css/pitchmenu.css" rel="stylesheet" type="text/css"/>
+
+
+<link href="./assets/css/pitchcode.css" rel="stylesheet" type="text/css"/>
+
+
+
+
+    
+
+
+    <link href="./assets/css/pitchpost.css" rel="stylesheet" type="text/css"/>
+    
+
+
+</head>
+<body>
+    
+
+
+    <div class="reveal">
+        <div class="slides">
+            
+            <section data-markdown="./assets/md/PITCHME.md"
+                     data-separator="(^---$|^---\?.*)"
+                     data-separator-vertical="(^\+\+\+$|^\+\+\+\?.*)"
+                     data-separator-notes="^Note:"
+                     data-charset="utf-8">
+            </section>
+            
+        </div>
+        
+
+<footer id="title-footer"><p id="notification"></p></footer>
+
+
+    </div>
+    
+    <div class="gp-menu"></div>
+    
+
+    <script src="./assets/reveal.js/3.7.0/js/reveal.js"></script>
+    <script src="./assets/reveal.js/3.7.0/lib/js/head.min.js"></script>
+    <script src="./assets/jquery/2.2.4/jquery.min.js"></script>
+    
+    
+
+    <script>
+        Reveal.initialize({
+            
+            controls: true,
+            
+            controlsLayout: 'bottom-right',
+            progress: true,
+            embedded: true,
+            
+            margin: 0.0,
+            showNotes: false,
+            transition: 'none',
+            backgroundTransition: 'none',
+            autoSlide: 0,
+            loop: false,
+            center: true,
+            rtl: false,
+            shuffle: false,
+            mouseWheel: false,
+            
+            
+              slideNumber: 'c/t', // slideNumber: false,
+            
+            history: false,
+            
+            
+            menu: {
+              custom: [
+                
+                { title: 'Home', active: true,
+                  icon: '<i class="fa fa-bookmark">',
+                  src: 'menu.html' }
+                
+              ],
+              path : "./assets/reveal.js/3.7.0/plugin/menu",
+              themes : false,
+              transitions:  false,
+              markers: true,
+              sticky: true,
+              autoOpen: true
+            },
+            
+            dependencies: [
+                { src: "./assets/reveal.js/3.7.0/plugin/markdown/marked.js",
+                  condition: function() {
+                    return !!document.querySelector( '[data-markdown]' );
+                  }},
+                { src: "./assets/reveal.js/3.7.0/plugin/markdown/markdown.js",
+                condition: function() {
+                  return !!document.querySelector( '[data-markdown]' );
+                }},
+                
+                { src:"./assets/reveal.js/3.7.0/plugin/menu/menu-mod.js",
+                  async: true},
+                
+                
+                
+                { src: "./assets/reveal.js/3.7.0/plugin/notes/notes.js",
+                  async: true },
+                
+                
+                { src: './assets/highlight.js/9.13.1/highlight.js', async: true },
+                { src: './assets/highlight.js/9.13.1/reveal-code-focus-1.0.0-mod.js',
+                  async: true,
+                  callback: function() {
+                    RevealCodeFocus();
+                  }
+                },
+                
+                { src: "./assets/js/twitter-embed-widgets.js", async: true },
+                
+            ]
+        });
+
+        Reveal.addEventListener('ready', function(evt) {
+
+          if(typeof twtter !== "undefined") {
+              twttr.widgets.load();
+          }
+
+          upgradeAnchors();
+
+          if (evt.indexh === 0 && evt.indexv === 0) {
+            pushHelpNotification();
+          } else {
+            pushFootnoteNotification();
+          }
+
+        });
+
+        
+        Reveal.addEventListener('menu-ready', function(evt) {
+            manageMenuPolicy();
+        });
+        
+
+        Reveal.addEventListener('slidechanged', function(evt) {
+          if (evt.indexh === 0 && evt.indexv === 0) {
+            pushHelpNotification();
+          } else {
+            pushFootnoteNotification();
+          }
+        });
+
+        Reveal.configure({
+            keyboard: {
+                88: function() { // bind "x" key to "select" code block content
+
+                    var currentSlide = Reveal.getCurrentSlide();
+                    var preBlock = $(currentSlide).find("pre");
+
+                    if(preBlock.length > 0) {
+
+                        if (window.getSelection) {
+                            var range = document.createRange();
+                            range.selectNodeContents(preBlock[0]);
+                            var selection = window.getSelection();
+                            selection.removeAllRanges();
+                            selection.addRange(range);
+                        }
+                    }
+                }
+            }
+        });
+
+        function enterFullscreen() {
+            Reveal.triggerKey(70);
+        };
+
+        function enterOverview() {
+            Reveal.toggleOverview();
+        };
+
+        function enterBlackout() {
+            Reveal.togglePause();
+        };
+
+        function enterHelp() {
+          Reveal.toggleHelp();
+        }
+
+        function enableEvents() {
+            Reveal.addEventListeners();
+        };
+
+        function disableEvents() {
+            Reveal.removeEventListeners();
+        };
+
+        function manageMenuPolicy() {
+            if(RevealMenu && RevealMenu.isOpen()) {
+                RevealMenu.toggle();
+            }
+        }
+
+        function upgradeAnchors() {
+            Array.from(document.getElementsByTagName('a')).forEach($link => {
+              if ($link.hostname !== window.location.hostname) {
+                $link.setAttribute('rel', 'noopener noreferrer');
+                $link.setAttribute('target', '_blank');
+              }
+            });
+        }
+
+    </script>
+
+    
+
+    
+
+<script>
+    function pushNotification(msg, fade) {
+      var footer = document.getElementById('title-footer')
+      var notification = document.getElementById('notification')
+      if(window.innerWidth < 700) {
+        footer.className = "footer-hidden";
+      } else {
+          footer.className = "footer-visible";
+          if(fade) {
+            notification.className = "footer-fade";
+            notification.innerHTML = msg;
+          } else {
+            notification.className = "footer-hard";
+            notification.innerHTML = msg;
+          }
+      }
+    };
+
+    function pushHelpNotification() {
+      if(window.innerWidth < 700)
+        pushNotification("<a href='#' onclick='RevealMenu.toggle()'>Menu</a> | <a href='#' onclick='enterFullscreen()'>Fullscreen</a> | <a href='#' onclick='enterOverview()'>Overview</a> | <a href='#' onclick='enterBlackout()'>Blackout</a> | <a href='#' onclick='RevealNotes.open()'>Speaker</a> | <a href='#' onclick='enterHelp()'>Help</a>");
+      else
+        pushNotification("Navigate : Space / Arrow Keys | <a href='#' onclick='RevealMenu.toggle()'>M</a> - Menu | <a href='#' onclick='enterFullscreen()'>F</a> - Fullscreen | <a href='#' onclick='enterOverview()'>O</a> - Overview | <a href='#' onclick='enterBlackout()'>B</a> - Blackout | <a href='#' onclick='RevealNotes.open()'>S</a> - Speaker | <a href='#' onclick='enterHelp()'>?</a> - Help");
+    }
+
+    function pushFootnoteNotification() {
+      
+        pushNotification("[ GitPitch @ github/k2works/mr-mcoffee/develop ]", true);
+      
+    }
+
+    function pushCodePresentingStepNotification(step, frags) {
+      pushNotification("Code Presenting - Step " + step + " / " + frags, true);
+    }
+</script>
+
+
+
+</body>
+</html>
