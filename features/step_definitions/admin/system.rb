@@ -9,6 +9,7 @@ end
   login
   system_page
   click_button '作成'
+  sleep 1
 end
 
 前提(/^システムページに移動している$/) do

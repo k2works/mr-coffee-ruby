@@ -19,11 +19,11 @@ end
 end
 
 ならば(/^お問い合わせ内容"([^"]*)","([^"]*)","([^"]*)","([^"]*)","([^"]*)"が表示される$/) do
-   |name,
-    email,
-    questionnaire,
-    category,
-    message|
+|name,
+email,
+questionnaire,
+category,
+message|
 
   expect(page).to have_content name
   expect(page).to have_content email

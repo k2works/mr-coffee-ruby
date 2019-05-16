@@ -33,6 +33,7 @@
     "test:spec": "cd $npm_package_config_app_dir; bundle exec rspec",
     "test:feature:headless": "cd $npm_package_config_app_dir; bundle exec cucumber --tags ~@wip",
     "test:feature:brower": "cd $npm_package_config_app_dir; BROWSER=true bundle exec cucumber",
+    "test:feature:doc": "cd $npm_package_config_app_dir; bundle exec cucumber --format json -o cucumber.json",
     "format": "cd $npm_package_config_app_dir; prettier --prefer-single-quotes false --write 'app/**/*.rb'",
     "linter": "cd $npm_package_config_app_dir; bundle exec rubocop",
     "linter:config": "cd $npm_package_config_app_dir; bundle exec rubocop --auto-gen-config",
