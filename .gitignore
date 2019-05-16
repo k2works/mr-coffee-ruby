@@ -249,3 +249,6 @@ node_modules
 .idea
 tmp
 *.sqlite
+cucumber.json
+generated_doc
+

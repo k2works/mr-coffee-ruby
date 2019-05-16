@@ -28,6 +28,8 @@
   },
   "scripts": {
     "start": "nf start -j Procfile",
+    "clean": "npm-run-all clean:*",
+    "clean:tmp": "rimraf ./tmp",
     "build": "npm-run-all app:build aws:sam:build",
     "test": "npm-run-all test:spec test:feature:headless",
     "test:spec": "cd $npm_package_config_app_dir; bundle exec rspec",
@@ -63,7 +65,11 @@
     "aws:sam:describe": "aws --region $npm_package_config_region cloudformation describe-stacks --stack-name $npm_package_config_stack_name",
     "aws:sam:release:develop": "npm-run-all aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
     "aws:sam:release": "npm-run-all test aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
-    "aws:sam:destroy": "aws --region $npm_package_config_region cloudformation delete-stack --stack-name $npm_package_config_stack_name"
+    "aws:sam:destroy": "aws --region $npm_package_config_region cloudformation delete-stack --stack-name $npm_package_config_stack_name",
+    "doc": "npm-run-all test:feature:doc doc:feature:* doc:open",
+    "doc:feature:html": "docker run -v \"$PWD:/output\" rmpestano/cukedoctor -p /output/cucumber.json -f html -toc left -numbered -o /output/docs/generated_doc/documentation",
+    "doc:feature:pdf": "docker run -v \"$PWD:/output\" rmpestano/cukedoctor -p /output/cucumber.json -f pdf -o /output/docs/generated_doc/documentation",
+    "doc:open": "open ./docs/generated_doc/documentation.html"
   },
   "repository": {
     "type": "git",

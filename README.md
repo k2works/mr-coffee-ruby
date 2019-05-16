@@ -90,6 +90,14 @@ npm run db:show
 npm run db:stop
 ```
 
+#### ドキュメントの生成
+
+```bash
+npm run doc
+```
+
+- [Cukedoctor](https://github.com/rmpestano/cukedoctor)
+
 #### アプリケーションの廃棄
 
 ```bash
