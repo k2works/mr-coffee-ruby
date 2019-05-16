@@ -32,4 +32,5 @@ group :test do
   gem 'rubocop', require: false
   gem 'selenium-webdriver'
   gem 'test-unit'
+  gem 'database_cleaner'
 end
