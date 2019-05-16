@@ -40,6 +40,7 @@ touch Procfile
 AWS SAM CLI のインストールおよびアップデート
 
  ```bash
+pip install --user awscli
 pip install --user aws-sam-cli
 pip install --user --upgrade aws-sam-cli
  ```
@@ -52,13 +53,26 @@ lambdaファンクション用バケットのセットアップ
 
 ```bash
 npm run aws:s3:create
-``` 
+```
  
+#### データベースのセットアップ
+ 
+```bash
+npm run db:setup
+```
+
+#### SBAdminの導入
+ 
+```bash
+npm install startbootstrap-sb-admin-2 --save-dev
+cp -r node_modules/startbootstrap-sb-admin-2 app/views/admin
+```
+
 **[⬆ back to top](#構成)**
 
 ### 配置
 
-アプリケーションのデプロイ
+#### アプリケーションのデプロイ
 
 ```bash
 npm run aws:sam:release
@@ -68,7 +82,23 @@ npm run aws:sam:release
 
 ### 運用
 
-アプリケーションの廃棄
+#### データベースの起動と停止
+
+```bash
+npm run db:start
+npm run db:show
+npm run db:stop
+```
+
+#### ドキュメントの生成
+
+```bash
+npm run doc
+```
+
+- [Cukedoctor](https://github.com/rmpestano/cukedoctor)
+
+#### アプリケーションの廃棄
 
 ```bash
 npm run aws:sam:destroy
@@ -81,8 +111,8 @@ npm run aws:s3:destroy
 
 IDE起動後にコマンドラインで以下のコマンドを実行する
 ```bash
-npm install
-npm run build
+chmod 0700 ./scripts/setup.sh
+./scripts/setup.sh
 npm start
 ```
 A service is available on port 3000ポップアップからOpen PreviewまたはOpen Browserを押す

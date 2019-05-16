@@ -245,4 +245,10 @@ $RECYCLE.BIN/
 
 .aws-sam
 packaged.yaml
+node_modules
 .idea
+tmp
+*.sqlite
+cucumber.json
+generated_doc
+

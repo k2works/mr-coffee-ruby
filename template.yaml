@@ -5,6 +5,16 @@ Description: >
 
   Sample SAM Template for src
 
+Parameters:
+  Stage:
+    Type: String
+    Description: Application deployment stage
+    Default: ''
+  ApiUrl:
+    Type: String
+    Description: Default api url
+    Default: 'https://mr-mcoffee.hiroshima-arc.org'
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -17,6 +27,12 @@ Resources:
       FunctionName: SinatraApp
       Handler: lambda.handler
       Runtime: ruby2.5
+      Environment:
+        Variables:
+          SINATRA_ENV: production
+          API_URL: !Ref ApiUrl
+      Policies:
+        - AmazonDynamoDBFullAccess
       CodeUri: "./app"
       MemorySize: 512
       Timeout: 30
