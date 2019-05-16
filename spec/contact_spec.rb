@@ -72,10 +72,10 @@ describe 'Contact Service' do
       category: 'category1',
       message: 'メッセージ'
     }
-   service = ContactService.new(stub: stub_client)
+    service = ContactService.new(stub: stub_client)
     service.save(params)
-    result = service.find({id:1, name:"お名前"})
-    expect(api_requests.last).to eq( {:key=>{"id"=>{:n=>"1"}, "name"=>{:s=>"お名前"}}, :table_name=>"Contact"})
+    result = service.find(id: 1, name: 'お名前')
+    expect(api_requests.last).to eq(key: { 'id' => { n: '1' }, 'name' => { s: 'お名前' } }, table_name: 'Contact')
   end
 
   it '問い合わせテーブルを削除する' do
