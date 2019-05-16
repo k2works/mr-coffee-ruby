@@ -27,7 +27,7 @@ describe 'Contact Service' do
 
   it '問い合わせテーブルを作る' do
     service = ContactService.new
-    stub_client = configure_test_client(service.cfg.client)
+    stub_client = configure_test_client(service.cfg_client)
     stub_client.stub_responses(
       :describe_table,
       'ResourceNotFoundException',
@@ -73,7 +73,7 @@ describe 'Contact Service' do
       message: 'メッセージ'
     }
     service = ContactService.new(stub: stub_client)
-    item = service.item
+    item = service.new
     expect(item.new_record?).to be(true)
     item.id = 1
     item.ts = 1
@@ -105,7 +105,7 @@ describe 'Contact Service' do
 
   it '問い合わせ内容一覧を取得する' do
     service = ContactService.new(stub: stub_client)
-    stub_client = configure_test_client(service.cfg.client)
+    stub_client = configure_test_client(service.cfg_client)
     stub_client.stub_responses(:scan,
                                items: [
                                  {

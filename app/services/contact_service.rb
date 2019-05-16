@@ -1,69 +1,34 @@
 # frozen_string_literal: true
 
 class ContactService
-  attr_reader :cfg, :item
+  attr_reader :cfg_client
 
   def initialize(opt = {})
-    @model = Contact
-    @cfg =
-      Aws::Record::TableConfig.define do |t|
-        t.model_class(Contact)
-        t.read_capacity_units(1)
-        t.write_capacity_units(1)
-        t.client_options(stub_responses: true) if ENV['APP_ENV'] == 'test'
-      end
+    @repository = ContactRepository.new(opt)
+    @cfg_client = @repository.cfg.client
+  end
 
-    @model.configure_client(client: opt[:stub]) if ENV['APP_ENV'] == 'test'
-    @item = @model.new(id: SecureRandom.uuid, ts: Time.now)
-    @migration =
-      if ENV['APP_ENV'] == 'test'
-        Aws::Record::TableMigration.new(Contact, client: opt[:stub])
-      else
-        Aws::Record::TableMigration.new(Contact)
-      end
+  def new
+    @repository.new
   end
 
   def create
-    @cfg.migrate!
+    @repository.create
   end
 
   def save(params)
-    @item.name = params[:name]
-    @item.email = params[:email]
-    @item.questionnaire = params[:questionnaire]
-    @item.category = params[:category]
-    @item.message = params[:message]
-    @item.save!
+    @repository.save(params)
   end
 
   def drop
-    @migration.delete!
+    @repository.drop
   end
 
   def seed
-    (1..10).each do |i|
-      param = {
-        id: i,
-        name: Faker::JapaneseMedia::SwordArtOnline.game_name,
-        email: Faker::Internet.email,
-        questionnaire: "answer#{i}",
-        category: "category#{i}",
-        message: Faker::JapaneseMedia::SwordArtOnline.item
-      }
-      save(param)
-    end
+    @repository.seed
   end
 
   def select_all
-    @model.scan.to_a.map do |item|
-      {
-        id: item.id.to_i,
-        name: item.name,
-        email: item.email,
-        questionnaire: item.questionnaire,
-        category: item.category,
-        message: item.message
-      }
-    end
+    @repository.select_all
   end
 end
